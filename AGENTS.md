@@ -27,6 +27,7 @@ Do not add extra files to a component folder beyond these four unless there's a 
 
 - Tailwind utilities use the `tw:` prefix (configured in `app/globals.css`, e.g. `tw:flex tw:items-center`).
 - Anything Tailwind doesn't cover cleanly (complex selectors, animations, one-off layout) goes in the component's `.module.scss` file, imported as `styles` and applied alongside `tw:` classes.
+- **Build mobile-first.** Write the default (unprefixed) styles for the smallest screen, then layer on media queries (Tailwind's `sm:`/`md:`/`lg:`/etc. breakpoint variants, or `min-width` queries in the `.module.scss` file) to adapt for larger screens. Never start from a desktop layout and scale down.
 
 ## Storybook
 

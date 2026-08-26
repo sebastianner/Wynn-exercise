@@ -1,0 +1,255 @@
+@use "../../styles/colors" as colors;
+
+// Layered to match Tailwind's `@layer theme, base, components, utilities;` order
+// (declared in app/globals.css) so that responsive `tw:` utility classes such as
+// `tw:md:flex-row` can still override these rules on the same element.
+@layer components {
+  .calendar {
+    // Leaves room on both sides for the prev/next nav buttons, which sit
+    // slightly outside the calendar's own edges, so they aren't clipped by
+    // the viewport or an ancestor container.
+    margin: 0 1.5rem;
+    border: 1px solid colors.$border;
+    background: colors.$white;
+    color: colors.$text;
+    font-family: inherit;
+  }
+
+  .fieldLabel {
+    color: colors.$text-muted;
+    letter-spacing: 0.04em;
+  }
+
+  .dateField {
+    display: flex;
+    align-items: center;
+    height: 2.75rem;
+    padding: 0 0.75rem;
+    border: 1px solid colors.$field-border;
+    border-radius: 2px;
+    background: colors.$white;
+    color: colors.$text;
+    font-size: 0.875rem;
+    cursor: pointer;
+    text-align: left;
+  }
+
+  .dateFieldActive {
+    border: 2px solid colors.$gold;
+    padding: 0 calc(0.75rem - 1px);
+  }
+
+  .counter {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .counterButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 1px solid colors.$border;
+    border-radius: 9999px;
+    background: none;
+    color: colors.$text;
+    cursor: pointer;
+
+    &:hover:not(:disabled) {
+      background: colors.$border;
+      color: colors.$white;
+    }
+
+    &:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+  }
+
+  .months {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-height: 22rem;
+    overflow-y: auto;
+  }
+
+  .month {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .monthTitle {
+    color: colors.$gold;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+
+  .weekdayRow {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin-bottom: 0.25rem;
+  }
+
+  .weekdayLabel {
+    color: colors.$text-muted;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .week {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+  }
+
+  .day {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.25rem;
+    border: none;
+    background: none;
+    color: colors.$text;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 9999px;
+
+    &:hover:not(:disabled) {
+      background: colors.$range-bg;
+    }
+  }
+
+  .dayEmpty {
+    height: 2.25rem;
+  }
+
+  .dayPast {
+    color: colors.$disabled;
+    cursor: not-allowed;
+  }
+
+  .daySelected {
+    background: colors.$selected-bg;
+    color: colors.$white;
+    border-radius: 0;
+    // Bleed 1px into the neighboring cell on both sides so subpixel grid
+    // rounding can't leave a hairline gap between adjacent selected days.
+    box-shadow:
+      -1px 0 0 0 colors.$selected-bg,
+      1px 0 0 0 colors.$selected-bg;
+    animation: paint-in 0.16s cubic-bezier(0.33, 1, 0.68, 1) both;
+
+    &:hover:not(:disabled) {
+      background: colors.$selected-bg;
+    }
+  }
+
+  .dayRoundLeft {
+    border-radius: 9999px 0 0 9999px;
+  }
+
+  .dayRoundRight {
+    border-radius: 0 9999px 9999px 0;
+  }
+
+  .dayRoundFull {
+    border-radius: 9999px;
+  }
+
+  // Every selected day animates together (no per-day stagger): pop in from
+  // invisible, hold as "selected" for a beat, then transition to the fill color.
+  @keyframes paint-in {
+    0% {
+      opacity: 0;
+      transform: scale(0.85);
+      background-color: transparent;
+      box-shadow:
+        -1px 0 0 0 transparent,
+        1px 0 0 0 transparent;
+    }
+    35% {
+      opacity: 1;
+      transform: scale(1);
+      background-color: transparent;
+      box-shadow:
+        -1px 0 0 0 transparent,
+        1px 0 0 0 transparent;
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+      background-color: colors.$selected-bg;
+      box-shadow:
+        -1px 0 0 0 colors.$selected-bg,
+        1px 0 0 0 colors.$selected-bg;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .daySelected {
+      animation: none;
+    }
+  }
+
+  .navButton {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid colors.$border;
+    border-radius: 9999px;
+    background: colors.$white;
+    color: colors.$text;
+    cursor: pointer;
+
+    &:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+  }
+
+  .navButtonPrev {
+    left: -1rem;
+  }
+
+  .navButtonNext {
+    right: -1rem;
+  }
+
+  .resetButton {
+    border: 1px solid colors.$green;
+    background: none;
+    color: colors.$green;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    padding: 0.6rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+
+    &:hover {
+      background: colors.$range-bg;
+    }
+  }
+
+  .updateButton {
+    border: none;
+    background: colors.$green;
+    color: colors.$white;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    padding: 0.6rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+
+    &:hover {
+      background: colors.$green-hover;
+    }
+  }
+}

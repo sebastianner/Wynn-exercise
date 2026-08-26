@@ -1,0 +1,25 @@
+// Shared color tokens for component .module.scss files.
+//
+// Usage from a component module (e.g. components/Header/Header.module.scss):
+//   @use "../../styles/colors" as colors;
+//   .thing { color: colors.$text; }
+
+// Neutrals
+$text: #1a1a1a;
+$text-muted: #626262;
+$border: #1a1a1a;
+$field-border: #e5e7eb;
+$disabled: #c9c9c9;
+$white: #fff;
+
+// Brand
+$gold: #775c3d;
+$green: #0e4b3f;
+$green-hover: #0a352c;
+
+// Calendar selection
+$selected-bg: #241a12;
+$range-bg: #f3ede4;
+
+// Dark brown surfaces (utility bar, footer)
+$dark-brown: #4b2a0b;

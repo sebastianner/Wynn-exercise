@@ -1,0 +1,22 @@
+// Layered to match Tailwind's `@layer theme, base, components, utilities;` order
+// (declared in app/globals.css) so that responsive `tw:` utility classes can
+// still override these rules on the same element.
+@layer components {
+  // A fixed 1920x602 ratio is too short to fit wrapped heading/subheading text
+  // on narrow screens, so mobile gets a comfortable min-height instead; the
+  // exact 1920x602 design ratio only kicks in once there's room for it.
+  .banner {
+    min-height: 22rem;
+
+    @media (min-width: 1024px) {
+      min-height: 0;
+      aspect-ratio: 1920 / 602;
+    }
+  }
+
+  .scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.05));
+  }
+}

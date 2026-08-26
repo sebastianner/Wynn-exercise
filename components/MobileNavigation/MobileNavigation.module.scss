@@ -1,0 +1,22 @@
+@use "../../styles/colors" as colors;
+
+// Layered to match Tailwind's `@layer theme, base, components, utilities;` order
+// (declared in app/globals.css) so that responsive `tw:` utility classes can
+// still override these rules on the same element.
+@layer components {
+  .nav {
+    background: colors.$white;
+    color: colors.$text;
+    letter-spacing: 0.04em;
+  }
+
+  .navLink {
+    color: colors.$text;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+  }
+}

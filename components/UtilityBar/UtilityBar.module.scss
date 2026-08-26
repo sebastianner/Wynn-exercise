@@ -1,0 +1,75 @@
+@use "../../styles/colors" as colors;
+
+// Layered to match Tailwind's `@layer theme, base, components, utilities;` order
+// (declared in app/globals.css) so that responsive `tw:` utility classes can
+// still override these rules on the same element.
+@layer components {
+  .bar {
+    background: colors.$dark-brown;
+    color: colors.$white;
+    font-family: inherit;
+  }
+
+  .iconButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: none;
+    padding: 0;
+    color: colors.$white;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  // next/image renders icons as <img>, which can't inherit `color` the way an
+  // inline <svg stroke="currentColor"> would — force them white with a filter
+  // instead.
+  .icon {
+    filter: brightness(0) invert(1);
+  }
+
+  .searchInput {
+    width: 0;
+    padding-bottom: 0.25rem;
+    border: none;
+    border-bottom: 1px solid rgba(colors.$white, 0.6);
+    background: none;
+    color: colors.$white;
+    font-size: 0.8125rem;
+    opacity: 0;
+    outline: none;
+    transition:
+      width 0.3s ease,
+      opacity 0.2s ease;
+
+    &::placeholder {
+      color: rgba(colors.$white, 0.7);
+    }
+  }
+
+  .searchInputOpen {
+    width: 16rem;
+    opacity: 1;
+  }
+
+  .link {
+    border: none;
+    background: none;
+    padding: 0;
+    color: colors.$white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    cursor: pointer;
+    white-space: nowrap;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}

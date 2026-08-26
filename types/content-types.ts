@@ -17,8 +17,10 @@ export interface HeaderProps {
 }
 
 export interface FooterProps {
-  links: NavigationItem[];
+  /** Groups of related links, rendered as separate columns. */
+  linkGroups: NavigationItem[][];
   copyrightText: string;
+  selfExclusionLabel: string;
 }
 
 export interface NavigationItem {
@@ -34,12 +36,15 @@ export interface NavigationProps {
 // Page component content types
 // ---------------------------------------------------------------------------
 
+export type TextJustification = "left" | "center" | "right";
+
 export interface HeroProps {
   id: string;
   contentType: "hero";
   heading: string;
   subheading: string;
   backgroundImage: ContentfulAsset;
+  textJustification: TextJustification;
 }
 
 export type PromoImagePosition = "left" | "right";

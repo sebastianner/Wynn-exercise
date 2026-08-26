@@ -1,0 +1,195 @@
+@use "../../styles/colors" as colors;
+
+// Layered to match Tailwind's `@layer theme, base, components, utilities;` order
+// (declared in app/globals.css) so that responsive `tw:` utility classes such as
+// `tw:md:hidden` can still override these rules on the same element.
+@layer components {
+  .header {
+    border-bottom: 1px solid colors.$border;
+    color: colors.$text;
+    background: colors.$white;
+  }
+
+  .iconButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: none;
+    padding: 0;
+    color: colors.$text;
+    cursor: pointer;
+
+    &:hover {
+      color: colors.$text-muted;
+    }
+  }
+
+  .searchPanel {
+    border-top: 1px solid colors.$border;
+    animation: slide-down 0.15s ease-out;
+  }
+
+  @keyframes slide-down {
+    from {
+      opacity: 0;
+      transform: translateY(-0.5rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .siteName {
+    color: colors.$text;
+    letter-spacing: 0.08em;
+  }
+
+  .fieldLabel {
+    color: colors.$text-muted;
+    letter-spacing: 0.04em;
+  }
+
+  .dateTrigger {
+    border: none;
+    background: none;
+    padding: 0;
+    color: colors.$text;
+    cursor: pointer;
+    text-align: left;
+
+    &:hover {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+  }
+
+  .calendarPanel {
+    filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.12));
+    animation: slide-down 0.15s ease-out;
+  }
+
+  .mobileNavPanel {
+    position: fixed;
+    top: 5.5rem;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 30;
+    background: colors.$white;
+    animation: nav-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @keyframes nav-in {
+    from {
+      opacity: 0;
+      transform: translateY(-0.75rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mobileNavPanel {
+      animation: none;
+    }
+  }
+
+  .menuIcon {
+    position: relative;
+    display: inline-block;
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .menuIconBar {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: currentColor;
+    border-radius: 1px;
+    transition:
+      transform 0.25s ease,
+      opacity 0.2s ease,
+      top 0.25s ease;
+
+    &:nth-child(1) {
+      top: 4px;
+    }
+
+    &:nth-child(2) {
+      top: 11px;
+    }
+
+    &:nth-child(3) {
+      top: 18px;
+    }
+  }
+
+  .menuIconOpen {
+    .menuIconBar:nth-child(1) {
+      top: 11px;
+      transform: rotate(45deg);
+    }
+
+    .menuIconBar:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menuIconBar:nth-child(3) {
+      top: 11px;
+      transform: rotate(-45deg);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .menuIconBar {
+      transition: none;
+    }
+  }
+
+  .counter {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .counterButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 1px solid colors.$border;
+    border-radius: 9999px;
+    background: none;
+    color: colors.$text;
+    cursor: pointer;
+
+    &:hover:not(:disabled) {
+      background: colors.$border;
+      color: colors.$white;
+    }
+
+    &:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+  }
+
+  .ctaButton {
+    border: none;
+    background: colors.$green;
+    color: colors.$white;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+
+    &:hover {
+      background: colors.$green-hover;
+    }
+  }
+}

@@ -1,0 +1,46 @@
+@use "../../styles/colors" as colors;
+
+// Layered to match Tailwind's `@layer theme, base, components, utilities;` order
+// (declared in app/globals.css) so that responsive `tw:` utility classes can
+// still override these rules on the same element.
+@layer components {
+  .footer {
+    background: colors.$dark-brown;
+    color: colors.$white;
+  }
+
+  .heading {
+    font-weight: 700;
+  }
+
+  .link {
+    color: colors.$white;
+    text-decoration: none;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  .socialLink {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  .copyright {
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(colors.$white, 0.2);
+    color: colors.$white;
+  }
+
+  .selfExclusion {
+    color: colors.$white;
+    letter-spacing: 0.03em;
+    line-height: 1.6;
+  }
+}

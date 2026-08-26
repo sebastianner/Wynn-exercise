@@ -1,0 +1,29 @@
+@use "../../styles/colors" as colors;
+
+// Layered to match Tailwind's `@layer theme, base, components, utilities;` order
+// (declared in app/globals.css) so that responsive `tw:` utility classes can
+// still override these rules on the same element.
+@layer components {
+  .nav {
+    border-color: colors.$border;
+    background: colors.$white;
+  }
+
+  .navLink {
+    display: inline-block;
+    color: colors.$text;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    padding-bottom: 0.375rem;
+    border-bottom: 2px solid transparent;
+
+    &:hover {
+      border-bottom-color: colors.$text;
+    }
+  }
+
+  // Current page: same thick underline as hover, but it stays without hovering.
+  .navLinkActive {
+    border-bottom-color: colors.$text;
+  }
+}

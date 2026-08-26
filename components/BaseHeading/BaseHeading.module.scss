@@ -1,0 +1,8 @@
+// Layered to match Tailwind's `@layer theme, base, components, utilities;` order
+// (declared in app/globals.css) so that responsive `tw:` utility classes can
+// still override these rules on the same element.
+@layer components {
+  .heading {
+    margin: 0;
+  }
+}
