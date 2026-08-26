@@ -7,6 +7,7 @@ import Link from "next/link";
 
 import type { ContentfulAsset, NavigationItem } from "@/types/content-types";
 
+import BaseButton from "@/components/BaseButton/BaseButton";
 import Calendar from "@/components/Calendar/Calendar";
 import MobileNavigation from "@/components/MobileNavigation/MobileNavigation";
 
@@ -314,12 +315,7 @@ export default function Header({
           />
         </div>
 
-        <button
-          type="button"
-          className={`${styles.ctaButton} tw:ml-auto tw:px-6 tw:py-3 tw:text-sm tw:font-semibold`}
-        >
-          {HEADER_TEXT.checkAvailability}
-        </button>
+        <BaseButton className="tw:ml-auto">{HEADER_TEXT.checkAvailability}</BaseButton>
 
         {searchButton}
       </div>

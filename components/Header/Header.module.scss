@@ -181,15 +181,4 @@
     }
   }
 
-  .ctaButton {
-    border: none;
-    background: colors.$green;
-    color: colors.$white;
-    letter-spacing: 0.04em;
-    cursor: pointer;
-
-    &:hover {
-      background: colors.$green-hover;
-    }
-  }
 }

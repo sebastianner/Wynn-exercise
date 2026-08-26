@@ -5,6 +5,7 @@
 // still override these rules on the same element.
 @layer components {
   .bar {
+    border-bottom: 1px solid rgba(colors.$white, 0.15);
     background: colors.$dark-brown;
     color: colors.$white;
     font-family: inherit;

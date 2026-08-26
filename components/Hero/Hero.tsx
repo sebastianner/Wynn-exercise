@@ -20,6 +20,15 @@ const JUSTIFICATION_CLASS: Record<TextAlign, string> = {
   right: "tw:items-end",
 };
 
+// Left/right text sits over the image rather than spanning it, so it's capped
+// to about half the banner's width (and wraps) even on narrow screens; a
+// centered heading is free to use the wider, fixed cap.
+const TEXT_WIDTH_CLASS: Record<TextAlign, string> = {
+  left: "tw:max-w-[50%]",
+  center: "tw:max-w-3xl",
+  right: "tw:max-w-[50%]",
+};
+
 export default function Hero({ heading, subheading, backgroundImage, textJustification }: HeroProps) {
   return (
     <section className={`${styles.banner} tw:relative tw:w-full tw:overflow-hidden`}>
@@ -29,13 +38,13 @@ export default function Hero({ heading, subheading, backgroundImage, textJustifi
         fill
         unoptimized
         sizes="100vw"
-        className="tw:object-cover"
+        className="tw:object-cover tw:lg:object-fill"
       />
       <div className={styles.scrim} />
       <div
         className={`tw:relative tw:flex tw:h-full tw:flex-col tw:justify-center tw:px-6 tw:py-10 tw:sm:px-12 tw:lg:px-20 ${JUSTIFICATION_CLASS[textJustification]}`}
       >
-        <div className="tw:flex tw:max-w-3xl tw:flex-col tw:gap-3">
+        <div className={`tw:flex tw:flex-col tw:py-2 tw:sm:py-3 tw:lg:py-4 ${TEXT_WIDTH_CLASS[textJustification]}`}>
           <BaseHeading level={1} textAlign={textJustification} color="#fff">
             {heading}
           </BaseHeading>

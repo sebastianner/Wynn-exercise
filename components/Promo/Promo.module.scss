@@ -1,0 +1,42 @@
+@use "../../styles/colors" as colors;
+
+// Layered to match Tailwind's `@layer theme, base, components, utilities;` order
+// (declared in app/globals.css) so that responsive `tw:` utility classes can
+// still override these rules on the same element.
+@layer components {
+  // Square on mobile, growing with the viewport; becomes a landscape crop at
+  // tablet (capped 750x422) and a smaller one once the layout becomes a row
+  // on desktop (capped 530x300). The max-width/height caps themselves live in
+  // Promo.tsx as `tw:md:`/`tw:xl:` utilities instead of here, since Tailwind's
+  // utilities layer always beats this layer's rules.
+  .imageWrapper {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+
+    @media (min-width: 768px) {
+      aspect-ratio: 750 / 422;
+    }
+
+    @media (min-width: 1280px) {
+      aspect-ratio: 530 / 300;
+    }
+  }
+
+  .image {
+    transition: transform 0.5s ease-in-out;
+  }
+
+  .imageWrapper:hover .image {
+    transform: scale(1.05);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .image {
+      transition: none;
+    }
+  }
+
+  .description {
+    color: colors.$text-muted;
+  }
+}

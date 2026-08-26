@@ -1,0 +1,20 @@
+@use "../../styles/colors" as colors;
+
+// Layered to match Tailwind's `@layer theme, base, components, utilities;` order
+// (declared in app/globals.css) so that responsive `tw:` utility classes can
+// still override these rules on the same element.
+@layer components {
+  .button {
+    border: none;
+    border-radius: 4px;
+    background: colors.$green;
+    color: colors.$white;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+
+    &:hover {
+      background: colors.$green-hover;
+    }
+  }
+}

@@ -12,7 +12,7 @@ export interface DesktopNavigationProps {
 /** Desktop-only horizontal navigation bar. Presentational and prop-driven. */
 export default function DesktopNavigation({ items, activeUrl }: DesktopNavigationProps) {
   return (
-    <nav aria-label={DESKTOP_NAVIGATION_TEXT.navLabel} className={`${styles.nav} tw:border-t`}>
+    <nav aria-label={DESKTOP_NAVIGATION_TEXT.navLabel} className={`${styles.nav} tw:border-b`}>
       <ul className="tw:flex tw:flex-wrap tw:items-center tw:justify-center tw:gap-x-8 tw:gap-y-3 tw:px-4 tw:py-4">
         {items.map((item) => {
           const isActive = item.url === activeUrl;

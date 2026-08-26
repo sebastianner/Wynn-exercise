@@ -8,6 +8,7 @@ import {
 
 import type {
   ContentfulAsset,
+  FooterProps,
   HeaderProps,
   NavigationItem,
   NavigationProps,
@@ -25,6 +26,15 @@ interface NavigationSkeleton extends EntrySkeletonType {
   contentTypeId: "navigation";
   fields: {
     items: EntryFieldTypes.Object;
+  };
+}
+
+interface FooterSkeleton extends EntrySkeletonType {
+  contentTypeId: "footer";
+  fields: {
+    copyrightText: EntryFieldTypes.Symbol;
+    links: EntryFieldTypes.Object;
+    selfExclusionLabel: EntryFieldTypes.Text;
   };
 }
 
@@ -74,5 +84,20 @@ export async function getNavigation(): Promise<NavigationProps | null> {
 
   return {
     items: entry.fields.items as unknown as NavigationItem[],
+  };
+}
+
+export async function getFooter(): Promise<FooterProps | null> {
+  const { items } = await client.getEntries<FooterSkeleton>({
+    content_type: "footer",
+    limit: 1,
+  });
+  const entry = items[0];
+  if (!entry) return null;
+
+  return {
+    linkGroups: entry.fields.links as unknown as NavigationItem[][],
+    copyrightText: entry.fields.copyrightText,
+    selfExclusionLabel: entry.fields.selfExclusionLabel,
   };
 }

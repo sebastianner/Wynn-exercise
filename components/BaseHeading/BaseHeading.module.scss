@@ -2,7 +2,8 @@
 // (declared in app/globals.css) so that responsive `tw:` utility classes can
 // still override these rules on the same element.
 @layer components {
+  // Escape hatch for future one-off styling; vertical spacing is handled by
+  // the responsive `tw:my-*` margin utilities in BaseHeading.tsx instead.
   .heading {
-    margin: 0;
   }
 }

@@ -2,16 +2,14 @@
 // (declared in app/globals.css) so that responsive `tw:` utility classes can
 // still override these rules on the same element.
 @layer components {
-  // A fixed 1920x602 ratio is too short to fit wrapped heading/subheading text
-  // on narrow screens, so mobile gets a comfortable min-height instead; the
-  // exact 1920x602 design ratio only kicks in once there's room for it.
+  // Scales continuously with viewport width at the 1920x602 design ratio.
+  // Below ~1120px that ratio would be too short to fit the wrapped heading
+  // and subheading, so min-height floors it at a readable size — once the
+  // ratio-derived height exceeds that floor, it takes over smoothly with no
+  // breakpoint jump.
   .banner {
+    aspect-ratio: 1920 / 602;
     min-height: 22rem;
-
-    @media (min-width: 1024px) {
-      min-height: 0;
-      aspect-ratio: 1920 / 602;
-    }
   }
 
   .scrim {
