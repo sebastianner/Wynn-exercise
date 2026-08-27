@@ -6,3 +6,10 @@
   # this key rather than disabling scanning for the genuinely sensitive vars
   # (CONTENTFUL_ACCESS_TOKEN, CONTENTFUL_REVALIDATE_SECRET).
   SECRETS_SCAN_OMIT_KEYS = "CONTENTFUL_SPACE_ID"
+
+  # CONTENTFUL_ACCESS_TOKEN and CONTENTFUL_REVALIDATE_SECRET are genuine
+  # credentials, so keep scanning them everywhere else. They only turned up
+  # inside Turbopack's build cache (.netlify/.next/cache/turbopack/*.sst) —
+  # never in the actual rendered .html/.rsc output — which is internal build
+  # tooling, not something served to visitors, so it's safe to exempt.
+  SECRETS_SCAN_OMIT_PATHS = ".netlify/.next/cache/**"
