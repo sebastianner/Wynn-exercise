@@ -1,6 +1,8 @@
 [build.environment]
-  # Turbopack's build cache legitimately embeds env var values (e.g.
-  # CONTENTFUL_SPACE_ID) in its cache files under .next/cache — that's build
-  # tooling, not shipped output, so exclude it from secret scanning instead of
-  # disabling scanning outright.
-  SECRETS_SCAN_OMIT_PATHS = ".next/cache/**,.netlify/.next/cache/**"
+  # CONTENTFUL_SPACE_ID is not sensitive: it's the space segment of every
+  # Contentful asset URL (https://images.ctfassets.net/<spaceId>/...), so it's
+  # rendered into every page that shows a Contentful image, by design. Scanning
+  # for it as a secret always fails since it's meant to be public. Omit only
+  # this key rather than disabling scanning for the genuinely sensitive vars
+  # (CONTENTFUL_ACCESS_TOKEN, CONTENTFUL_REVALIDATE_SECRET).
+  SECRETS_SCAN_OMIT_KEYS = "CONTENTFUL_SPACE_ID"
