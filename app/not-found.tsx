@@ -1,9 +1,15 @@
+import type { Metadata } from "next";
+
 import Image from "next/image";
 
 import BaseButton from "@/components/BaseButton/BaseButton";
 import BaseHeading from "@/components/BaseHeading/BaseHeading";
 
 import compassIllustration from "@/assets/illustrations/not-found.svg";
+
+export const metadata: Metadata = {
+  title: "Insight Global - Page Not Found",
+};
 
 export default function NotFound() {
   return (

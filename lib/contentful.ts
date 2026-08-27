@@ -1,3 +1,5 @@
+import { cache } from "react";
+
 import {
   createClient,
   type Asset,
@@ -167,7 +169,9 @@ function toPageComponent(entry: PageComponentEntry): PageComponent | null {
   return null;
 }
 
-export async function getPage(slug: string): Promise<PageProps | null> {
+// Cached per request so generateMetadata and the page component (which both
+// need the same page) share one Contentful call instead of fetching twice.
+export const getPage = cache(async function getPage(slug: string): Promise<PageProps | null> {
   const { items } = await client.getEntries<PageSkeleton>({
     content_type: "page",
     "fields.slug": `/${slug}`,
@@ -182,7 +186,7 @@ export async function getPage(slug: string): Promise<PageProps | null> {
     slug: entry.fields.slug,
     components: entry.fields.components.map(toPageComponent).filter((component) => component !== null),
   };
-}
+});
 
 export async function getAllPageSlugs(): Promise<string[]> {
   const { items } = await client.getEntries<PageSkeleton>({
