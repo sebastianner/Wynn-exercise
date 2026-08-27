@@ -1,9 +1,4 @@
 export const HEADER_TEXT = {
-  openSearch: "Open search",
-  closeSearch: "Close search",
-  submitSearch: "Submit search",
-  searchLabel: "Search",
-  searchPlaceholder: "Search",
   openMenu: "Open menu",
   closeMenu: "Close menu",
   calendarIconAlt: "Calendar",

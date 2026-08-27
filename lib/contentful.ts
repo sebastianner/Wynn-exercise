@@ -49,7 +49,7 @@ interface HeroEntrySkeleton extends EntrySkeletonType {
     heading: EntryFieldTypes.Symbol;
     subheading: EntryFieldTypes.Symbol;
     backgroundImage: EntryFieldTypes.AssetLink;
-    textJustification: EntryFieldTypes.Array<EntryFieldTypes.Symbol>;
+    textJustification: EntryFieldTypes.Symbol;
   };
 }
 
@@ -146,7 +146,7 @@ function toPageComponent(entry: PageComponentEntry): PageComponent | null {
       heading: hero.fields.heading,
       subheading: hero.fields.subheading,
       backgroundImage: toAsset(hero.fields.backgroundImage),
-      textJustification: (hero.fields.textJustification?.[0] as TextJustification) ?? "left",
+      textJustification: (hero.fields.textJustification as TextJustification) ?? "left",
     };
   }
 
@@ -189,7 +189,7 @@ export async function getAllPageSlugs(): Promise<string[]> {
     content_type: "page",
     select: ["fields.slug"],
   });
-  return items.map((item) => item.fields.slug.replace(/^\//, ""));
+  return items.map((item) => item.fields.slug.replace(/^\//, "")).filter((slug) => slug !== "");
 }
 
 export async function getFooter(): Promise<FooterProps | null> {

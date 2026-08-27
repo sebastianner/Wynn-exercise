@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useRef, useState, type SubmitEvent } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -17,7 +17,6 @@ import { useReservationStore } from "@/lib/store/reservationStore";
 import calendarIcon from "@/assets/icons/calendar.svg";
 import minusIcon from "@/assets/icons/minus.svg";
 import plusIcon from "@/assets/icons/plus.svg";
-import searchIcon from "@/assets/icons/search.svg";
 
 import { HEADER_TEXT } from "./constants";
 import styles from "./Header.module.scss";
@@ -47,12 +46,10 @@ export default function Header({
   const { checkIn, checkOut, rooms, guestsPerRoom, promoCode, setRooms, setGuestsPerRoom, setPromoCode } =
     useReservationStore();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [menuTop, setMenuTop] = useState(0);
 
   const headerRef = useRef<HTMLElement>(null);
-  const searchPanelId = useId();
 
   useClickOutside(headerRef, () => setIsCalendarOpen(false), isCalendarOpen);
 
@@ -77,29 +74,6 @@ export default function Header({
   const checkInLabel = formatMonthDayYear(checkIn);
   const checkOutLabel = checkOut ? formatMonthDayYear(checkOut) : HEADER_TEXT.selectADate;
 
-  function handleSearchSubmit(event: SubmitEvent<HTMLFormElement>) {
-    event.preventDefault();
-  }
-
-  const searchButton = (
-    <button
-      type="button"
-      className={styles.iconButton}
-      aria-expanded={isSearchOpen}
-      aria-controls={searchPanelId}
-      onClick={() => setIsSearchOpen((open) => !open)}
-    >
-      <Image
-        src={searchIcon}
-        alt={isSearchOpen ? HEADER_TEXT.closeSearch : HEADER_TEXT.openSearch}
-        unoptimized
-        width={20}
-        height={20}
-        className="tw:h-5 tw:w-5"
-      />
-    </button>
-  );
-
   const calendarButton = (
     <button
       type="button"
@@ -123,10 +97,9 @@ export default function Header({
       ref={headerRef}
       className={`${styles.header} tw:relative tw:font-sans`}
     >
-      {/* Mobile & tablet: search + calendar | logo | menu */}
+      {/* Mobile & tablet: calendar | logo | menu */}
       <div className="tw:grid tw:grid-cols-[1fr_auto_1fr] tw:items-center tw:px-4 tw:py-3 tw:xl:hidden">
         <div className="tw:flex tw:items-center tw:gap-3 tw:justify-self-start">
-          {searchButton}
           {calendarButton}
         </div>
 
@@ -335,8 +308,6 @@ export default function Header({
         </div>
 
         <BaseButton className="tw:ml-auto">{HEADER_TEXT.checkAvailability}</BaseButton>
-
-        {searchButton}
       </div>
 
       {isCalendarOpen && (
@@ -344,42 +315,6 @@ export default function Header({
           className={`${styles.calendarPanel} tw:absolute tw:left-0 tw:right-0 tw:top-full tw:z-20`}
         >
           <Calendar onUpdate={() => setIsCalendarOpen(false)} />
-        </div>
-      )}
-
-      {isSearchOpen && (
-        <div
-          id={searchPanelId}
-          className={`${styles.searchPanel} tw:px-4 tw:py-3 tw:xl:px-8`}
-        >
-          <form
-            role="search"
-            onSubmit={handleSearchSubmit}
-            className="tw:flex tw:max-w-md tw:gap-2"
-          >
-            <label htmlFor={`${searchPanelId}-input`} className="tw:sr-only">
-              {HEADER_TEXT.searchLabel}
-            </label>
-            <input
-              id={`${searchPanelId}-input`}
-              type="search"
-              placeholder={HEADER_TEXT.searchPlaceholder}
-              className="tw:flex-1 tw:border tw:border-black/20 tw:px-3 tw:py-2 tw:text-sm"
-            />
-            <button
-              type="submit"
-              className={`${styles.iconButton} tw:border tw:border-black/20 tw:px-3`}
-            >
-              <Image
-                src={searchIcon}
-                alt={HEADER_TEXT.submitSearch}
-                unoptimized
-                width={20}
-                height={20}
-                className="tw:h-5 tw:w-5"
-              />
-            </button>
-          </form>
         </div>
       )}
     </header>

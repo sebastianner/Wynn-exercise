@@ -38,6 +38,8 @@ export default function Hero({ heading, subheading, backgroundImage, textJustifi
         alt={backgroundImage.description || backgroundImage.title}
         fill
         unoptimized
+        loading="eager"
+        fetchPriority="high"
         sizes="100vw"
         className="tw:object-cover tw:lg:object-fill"
       />

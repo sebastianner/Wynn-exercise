@@ -64,23 +64,6 @@ describe("Header", () => {
     }
   });
 
-  it("opens the search panel and lets the user type and submit without navigating away", async () => {
-    const user = userEvent.setup();
-    render(<Header logo={logo} siteName="Acme Inc." navigationItems={navigationItems} />);
-
-    expect(screen.queryByRole("searchbox")).not.toBeInTheDocument();
-
-    await user.click(screen.getAllByRole("button", { name: "Open search" })[0]);
-
-    const searchInput = screen.getByRole("searchbox", { name: "Search" });
-    await user.type(searchInput, "seasonal offerings");
-    expect(searchInput).toHaveValue("seasonal offerings");
-
-    await user.click(screen.getByRole("button", { name: "Submit search" }));
-
-    expect(searchInput).toBeInTheDocument();
-  });
-
   it("steps the rooms counter between its minimum and maximum bounds, updating the reservation store", async () => {
     const user = userEvent.setup();
     render(<Header logo={logo} siteName="Acme Inc." navigationItems={navigationItems} />);

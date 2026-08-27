@@ -25,11 +25,6 @@
     }
   }
 
-  .searchPanel {
-    border-top: 1px solid colors.$border;
-    animation: slide-down 0.15s ease-out;
-  }
-
   @keyframes slide-down {
     from {
       opacity: 0;
