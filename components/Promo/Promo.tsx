@@ -25,6 +25,12 @@ export default function Promo({ image, title, description, ctaLabel, ctaUrl, ima
   const isImageLeft = imagePosition === "left";
   const desktopAlignClass = isImageLeft ? "tw:xl:items-end tw:xl:text-right" : "tw:xl:items-start tw:xl:text-left";
   const headingAlignClass = isImageLeft ? "tw:xl:text-right" : "tw:xl:text-left";
+  // The image is centered in its column pre-xl, but once it's side by side
+  // with the text (xl+) it needs to hug the same outer edge the text hugs on
+  // its own side — otherwise stacked Promo instances don't line up: the
+  // image would float centered in its half while text on the matching side
+  // (in another instance) sits flush against the true edge.
+  const imageAlignClass = isImageLeft ? "tw:xl:mr-auto tw:xl:ml-0" : "tw:xl:ml-auto tw:xl:mr-0";
 
   return (
     <section
@@ -33,7 +39,7 @@ export default function Promo({ image, title, description, ctaLabel, ctaUrl, ima
       }`}
     >
       <div
-        className={`${styles.imageWrapper} tw:relative tw:mx-auto tw:w-full tw:max-w-full tw:md:max-w-[750px] tw:md:max-h-[422px] tw:xl:w-1/2 tw:xl:max-w-[530px] tw:xl:max-h-[300px]`}
+        className={`${styles.imageWrapper} tw:relative tw:mx-auto tw:w-full tw:max-w-full tw:md:max-w-[750px] tw:md:max-h-[422px] tw:xl:w-1/2 tw:xl:max-w-[530px] tw:xl:max-h-[300px] ${imageAlignClass}`}
       >
         <Image
           src={image.url}
@@ -46,7 +52,7 @@ export default function Promo({ image, title, description, ctaLabel, ctaUrl, ima
       </div>
 
       <div className={`tw:flex tw:flex-col tw:items-center tw:gap-4 tw:text-center tw:xl:w-1/2 ${desktopAlignClass}`}>
-        <BaseHeading level={2} textAlign="center" className={headingAlignClass}>
+        <BaseHeading level={3} textAlign="center" color="#1a1a1a" className={headingAlignClass}>
           {title}
         </BaseHeading>
         <p className={`${styles.description} tw:max-w-md tw:whitespace-pre-line tw:text-sm`}>{description}</p>

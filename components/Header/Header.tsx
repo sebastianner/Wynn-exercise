@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useRef, useState, type SubmitEvent } from "react";
+import { useEffect, useId, useRef, useState, type SubmitEvent } from "react";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -49,11 +49,30 @@ export default function Header({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const [menuTop, setMenuTop] = useState(0);
 
   const headerRef = useRef<HTMLElement>(null);
   const searchPanelId = useId();
 
   useClickOutside(headerRef, () => setIsCalendarOpen(false), isCalendarOpen);
+
+  // The mobile nav drawer is fixed-positioned so it can reach the bottom of
+  // the viewport, so its top offset has to be measured rather than assumed —
+  // anything sticky-stacked above the header (e.g. UtilityBar) shifts where
+  // the header's own bottom edge actually lands.
+  useEffect(() => {
+    if (!isMenuOpen) return;
+
+    function updateMenuTop() {
+      if (headerRef.current) {
+        setMenuTop(headerRef.current.getBoundingClientRect().bottom);
+      }
+    }
+
+    updateMenuTop();
+    window.addEventListener("resize", updateMenuTop);
+    return () => window.removeEventListener("resize", updateMenuTop);
+  }, [isMenuOpen]);
 
   const checkInLabel = formatMonthDayYear(checkIn);
   const checkOutLabel = checkOut ? formatMonthDayYear(checkOut) : HEADER_TEXT.selectADate;
@@ -152,7 +171,7 @@ export default function Header({
       </div>
 
       {isMenuOpen && (
-        <div className={`${styles.mobileNavPanel} tw:xl:hidden`}>
+        <div className={`${styles.mobileNavPanel} tw:xl:hidden`} style={{ top: menuTop }}>
           <MobileNavigation items={navigationItems} />
         </div>
       )}

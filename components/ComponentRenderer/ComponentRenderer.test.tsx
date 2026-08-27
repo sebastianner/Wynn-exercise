@@ -49,7 +49,7 @@ describe("ComponentRenderer", () => {
   it("renders a Promo for a promo entry", () => {
     render(<ComponentRenderer components={[promo]} />);
 
-    expect(screen.getByRole("heading", { level: 2, name: "Limited Time Offer" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 3, name: "Limited Time Offer" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Shop Now" })).toHaveAttribute("href", "/shop");
   });
 
@@ -57,7 +57,7 @@ describe("ComponentRenderer", () => {
     render(<ComponentRenderer components={[hero, promo]} />);
 
     expect(screen.getByRole("heading", { level: 1, name: "Build Something Amazing" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { level: 2, name: "Limited Time Offer" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 3, name: "Limited Time Offer" })).toBeInTheDocument();
   });
 
   it("skips an entry whose contentType has no matching component", () => {

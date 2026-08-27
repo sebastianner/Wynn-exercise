@@ -26,7 +26,7 @@ describe("Promo", () => {
       />,
     );
 
-    expect(screen.getByRole("heading", { level: 2, name: "Peking Duck Special" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 3, name: "Peking Duck Special" })).toBeInTheDocument();
     expect(screen.getByText("Available every Wednesday through Friday.")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Make a Reservation" })).toHaveAttribute("href", "/reservations");
   });
@@ -77,7 +77,7 @@ describe("Promo", () => {
       />,
     );
 
-    const section = screen.getByRole("heading", { level: 2 }).closest("section");
+    const section = screen.getByRole("heading", { level: 3 }).closest("section");
     if (expectReversed) {
       expect(section).toHaveClass("tw:xl:flex-row-reverse");
     } else {

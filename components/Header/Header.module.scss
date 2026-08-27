@@ -70,9 +70,11 @@
     animation: slide-down 0.15s ease-out;
   }
 
+  // `top` is set inline from the header's actual measured bottom edge (see
+  // Header.tsx) rather than a fixed value, since anything stacked above the
+  // header (e.g. UtilityBar) changes where the header's bottom edge lands.
   .mobileNavPanel {
     position: fixed;
-    top: 5.5rem;
     right: 0;
     bottom: 0;
     left: 0;

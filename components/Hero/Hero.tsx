@@ -21,12 +21,13 @@ const JUSTIFICATION_CLASS: Record<TextAlign, string> = {
 };
 
 // Left/right text sits over the image rather than spanning it, so it's capped
-// to about half the banner's width (and wraps) even on narrow screens; a
-// centered heading is free to use the wider, fixed cap.
+// to 55% of the banner's width on mobile, 65% from lg up, then back down to
+// 60% at xl (and wraps at that cap); a centered heading is free to use the
+// wider, fixed cap.
 const TEXT_WIDTH_CLASS: Record<TextAlign, string> = {
-  left: "tw:max-w-[50%]",
+  left: "tw:max-w-[55%] tw:lg:max-w-[65%] tw:xl:max-w-[60%]",
   center: "tw:max-w-3xl",
-  right: "tw:max-w-[50%]",
+  right: "tw:max-w-[55%] tw:lg:max-w-[65%] tw:xl:max-w-[60%]",
 };
 
 export default function Hero({ heading, subheading, backgroundImage, textJustification }: HeroProps) {
