@@ -1,0 +1,6 @@
+[build.environment]
+  # Turbopack's build cache legitimately embeds env var values (e.g.
+  # CONTENTFUL_SPACE_ID) in its cache files under .next/cache — that's build
+  # tooling, not shipped output, so exclude it from secret scanning instead of
+  # disabling scanning outright.
+  SECRETS_SCAN_OMIT_PATHS = ".next/cache/**,.netlify/.next/cache/**"
