@@ -8,7 +8,7 @@ import BaseHeading from "@/components/BaseHeading/BaseHeading";
 import compassIllustration from "@/assets/illustrations/not-found.svg";
 
 export const metadata: Metadata = {
-  title: "Insight Global - Page Not Found",
+  title: "Wynn - Page Not Found",
 };
 
 export default function NotFound() {

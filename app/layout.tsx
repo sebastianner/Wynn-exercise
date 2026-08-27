@@ -20,7 +20,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Insight Global",
+  title: "Wynn",
 };
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {

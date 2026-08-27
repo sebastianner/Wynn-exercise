@@ -13,7 +13,7 @@ export async function generateMetadata(): Promise<Metadata> {
     notFound();
   }
 
-  return { title: "Insight Global - Home" };
+  return { title: "Wynn - Home" };
 }
 
 export default async function RootPage() {

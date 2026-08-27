@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: PageProps<"/[slug]">): Promis
     notFound();
   }
 
-  return { title: `Insight Global - ${page.title}` };
+  return { title: `Wynn - ${page.title}` };
 }
 
 export default async function Page({ params }: PageProps<"/[slug]">) {
